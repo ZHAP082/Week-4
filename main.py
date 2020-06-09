@@ -207,7 +207,54 @@ ratio_of_visible_mass_to_all_mass = ( sum_visible / sum_all )
 print ('The fraction of visible mass to all mass in galaxy is :')
 print (ratio_of_visible_mass_to_all_mass)
 
-plt.legend(['Data', 'Visual mass', 'Combined mass', 'Optimum combined mass', '+ uncertainty', '- uncertainty'])
-
 plt.show() # Have to put this here at the end since if you want to print someting it gas to be before pl.show.
 ############################################################################################################################
+#Finding optimum rc_value only for Galaxy 1 with optimum density.
+
+Xsquared_old_rc = closest_0_X_squared
+
+rc_better = []
+
+X_rc_better = []
+
+for rc in np.arange((0), (3), 0.01):
+
+  Mass_density_DM_test_rc = (4*np.pi*(Optimum_density)*(rc**2))*(Radias_data_array - (rc*np.arctan(Radias_data_array / rc)))
+
+  Cobmined_mass_test_rc = (Mass_density_DM_test_rc + Mass_data_array)
+
+  v_model_test_rc = np.sqrt(((4.30*10**-6)*Cobmined_mass_test_rc)/Radias_data_array)
+
+  Xsquared_values_rc =  ((velocity_data_array - v_model_test_rc)**2)/(change_in_velocity_data_array **2)
+
+  X_squared_rc = np.sum(Xsquared_values_rc)
+
+  if(X_squared_rc < closest_0_X_squared):
+
+    rc_better.append(rc)
+
+    X_rc_better.append(X_squared_rc)
+      
+closest_0_X_squared_rc = min(better_Xsquared, key=abs)
+
+index_of_lowest_Xtwo_rc = better_Xsquared.index(closest_0_X_squared_rc)
+
+Optimum_rc =  (better_guesses[index_of_lowest_Xtwo_rc])
+
+print ('The optimum density is:')
+print (Optimum_rc)
+print ('Its X^2 is closest_0_X_squared_rc')
+
+Mass_density_DM_rc = (4*np.pi*(Optimum_density)*(Optimum_rc**2))*(Radias_data_array - (rc*np.arctan(Radias_data_array / rc)))
+
+Cobmined_mass_rc = (Mass_density_DM_rc + Mass_data_array)
+
+v_model_rc = np.sqrt(((4.30*10**-6)*Cobmined_mass_rc)/Radias_data_array)
+
+plt.plot(Radias_data_array,v_model_rc, label = 'Optimum rc')
+
+plt.legend(['Data', 'Visual mass', 'Combined mass', 'Optimum combined mass', '+ uncertainty', '- uncertainty','Optimum rc'])
+
+plt.show() # Have to put this here at the end since if you want to print someting it gas to be before pl.show.
+
+
