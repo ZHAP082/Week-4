@@ -1,0 +1,4 @@
+			rc	
+Galaxy 1		1.87
+Galaxy 2		5.86
+Galaxy 3		2.56
