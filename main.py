@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #This bit of code is from week1 it makes an array for each label in Galaxy1.txt
 ############################################################################################################
 f = open('Galaxy3.txt','r')
-list_make = f.readlines()
+list_make = f.readlines() 
 
 All_data = []
 Radias  = []
