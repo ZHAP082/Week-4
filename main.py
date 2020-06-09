@@ -1,11 +1,11 @@
 #This is an exact copy of the code from week 3. All you have to do is change the name of the file it reads at the begining to the galaxy whos graphs you wanna look at and change the rc value for that specific galaxy. I changed all the 1.87 for galaxy 1 to rc_value so you dont have to change each one you switch galaxies but you can use Ctrl F to find those.
-rc_value = 2.56
+rc_value = 1.87
 import numpy as np
 import matplotlib.pyplot as plt
 ############################################################################################################
 #This bit of code is from week1 it makes an array for each label in Galaxy1.txt
 ############################################################################################################
-f = open('Galaxy3.txt','r')
+f = open('Galaxy1 (4).txt','r')
 list_make = f.readlines() 
 
 All_data = []
@@ -71,14 +71,14 @@ Mass_data_array = np.array(Mass_data)
 ###############################################################################################################
 #This is from week 2 it is plots for - v(r) for v observed, v visual, v sum. 
 ###############################################################################################################
-plt.plot(Radias_data_array,velocity_data_array)
+plt.plot(Radias_data_array,velocity_data_array, label = 'Data')
 plt.xlabel ('Radias / kpc')
 plt.ylabel ('velocity / km/s')
 plt.title ("Observed, calculated v's and uncertainty in optimum v against radius")
 
 velocity_Visual_array = np.sqrt(((4.30*10**-6)*Mass_data_array)/Radias_data_array)
 
-plt.plot(Radias_data_array,velocity_Visual_array)
+plt.plot(Radias_data_array,velocity_Visual_array, label = 'Visual mass')
 
 Mass_DM_old = (4*np.pi*(100*10**6)*(rc_value**2))*(Radias_data_array - (rc_value*np.arctan(Radias_data_array / rc_value)))
 
@@ -86,7 +86,7 @@ Mass_sum = (Mass_data_array + Mass_DM_old)
 
 velocity_sum_old = np.sqrt(((4.30*10**-6)*Mass_sum)/Radias_data_array) 
 
-plt.plot(Radias_data_array,velocity_sum_old)
+plt.plot(Radias_data_array,velocity_sum_old, label = 'Combined mass')
 ##################################################################################################################
 ##################################################################################################################
 
@@ -146,7 +146,7 @@ Optimum_Combined_mass = (Optimum_mass_DM + Mass_data_array)
 
 v_optimum = np.sqrt(((4.30*10**-6)*Optimum_Combined_mass)/Radias_data_array)
 
-plt.plot(Radias_data_array,v_optimum)
+plt.plot(Radias_data_array,v_optimum, label = 'Optimum combined mass')
 ########################################################################################################################
 #4.MAYBE BREAKTHROUGH CHECK PARAGRAPH.
 
@@ -194,8 +194,8 @@ v_plus = np.sqrt(((4.30*10**-6)*Mass_sum_plus)/Radias_data_array)
 
 v_minus = np.sqrt(((4.30*10**-6)*Mass_sum_minus)/Radias_data_array)
 
-plt.plot(Radias_data_array,v_plus,)
-plt.plot(Radias_data_array,v_minus,)
+plt.plot(Radias_data_array,v_plus, label = '+ uncertainty')
+plt.plot(Radias_data_array,v_minus, label = '- uncertainty')
 ##########################################################################################################################
 #6.
 
@@ -206,6 +206,8 @@ ratio_of_visible_mass_to_all_mass = ( sum_visible / sum_all )
 
 print ('The fraction of visible mass to all mass in galaxy is :')
 print (ratio_of_visible_mass_to_all_mass)
+
+plt.legend(['Data', 'Visual mass', 'Combined mass', 'Optimum combined mass', '+ uncertainty', '- uncertainty'])
 
 plt.show() # Have to put this here at the end since if you want to print someting it gas to be before pl.show.
 ############################################################################################################################
